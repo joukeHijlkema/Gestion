@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Planning>
+    <Project description='R&amp;T Hybride' start="01/06/2016" end="31/12/2017" aer="25650">
+	<Milestone date="30/06/2016"
+		   title="CR réunion de démarrage"
+		   done="True"
+		   type="CR"
+	/>
+	<Milestone date="15/11/2016"
+		   title="Résultats essai coparatif 1"
+		   done="True"
+		   type="CR"
+	/>
+	<Milestone date="31/08/2017"
+		   title="Choix géométrie"
+		   done="True"
+		   type="CR"
+	/>
+	<Milestone date="15/11/2017"
+		   title="Rapport final"
+		   done="False"
+		   type="RT"
+	/>
+	<Task title="Calculs 3D"
+	      part="0.3"
+	      done="0.2">
+	    <Task title="Maillage"
+		  part="0.1"
+		  done="1.0"/>
+	    <Task title="Calculs air"
+		  part="0.1"
+		  done="1.0"/>
+	    <Task title="Calculs combustion"
+		  part="0.2"
+		  don="0.0"/>
+	    <Task title="Calculs Arrhenius"
+		  part="0.3"
+		  done="0.0"/>
+	</Task>
+    </Project>
+</Planning>

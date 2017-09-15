@@ -22,20 +22,29 @@
 		   type="RT"
 	/>
 	<Task title="Calculs 3D"
-	      part="0.3"
-	      done="0.2">
+	      part="30"
+	      done="20">
 	    <Task title="Maillage"
-		  part="0.1"
-		  done="1.0"/>
+		  part="10"
+		  done="100"/>
 	    <Task title="Calculs air"
-		  part="0.1"
-		  done="1.0"/>
+		  part="10"
+		  done="100"/>
 	    <Task title="Calculs combustion"
-		  part="0.2"
-		  don="0.0"/>
+		  part="20"
+		  done="0"/>
 	    <Task title="Calculs Arrhenius"
-		  part="0.3"
-		  done="0.0"/>
+		  part="30"
+		  done="0"/>
 	</Task>
     </Project>
-</Planning>
+    <Project description="TRP Hydrazine " start="01/09/2017" end="31/10/2018" aer="a verifier">
+	<Task title="hardware design"
+	      part="30"
+	      done="10">
+	    <Task title="dimension liquid reservoir and capilar for test 2"
+		  part="1"
+		  done="0"/>
+	</Task>
+    </Project>	 
+ </Planning>

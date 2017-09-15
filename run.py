@@ -12,8 +12,17 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GObject
 
-from Gui.mainWindow import mainWindow
-from Xml.myData import myData
+import sys
+from os import path
+root = path.dirname(path.abspath(__file__))
+print(root)
+sys.path.append(root)
+sys.path.append("%s/Gui"%(root))
+sys.path.append("%s/Gui/Parts"%(root))
+sys.path.append("%s/Xml"%(root))
+
+from mainWindow import mainWindow
+from myData import myData
 
 db = myData({"path":"./test.xml"})
 
@@ -24,7 +33,8 @@ for p in db.Projects():
     for m in p.iter("Milestone"):
         np.addMilestone(m.attrib)
     for t in p.findall("Task"):
-        np.addTask(t.attrib)
+        t.attrib["project"]=p.get("description")
+        np.addTask(t)
         
     
 Gtk.main()

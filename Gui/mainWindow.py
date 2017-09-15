@@ -10,9 +10,11 @@
 import gi
 from gi.repository import Gtk, GObject, Gdk
 
-from .Parts.Project import Project
+from Project import Project
+from dayTask import dayTask
 
 class mainWindow(Gtk.Window):
+    __gsignals__ = {'taskSelected': (GObject.SIGNAL_RUN_FIRST, None, (GObject.GObject,)) }
     def __init__(self, *args):
         "main window of the Gestion GUI"
         super(mainWindow, self).__init__()
@@ -47,8 +49,22 @@ class mainWindow(Gtk.Window):
     ## date   : 05-09-2017 14:09:08
     ## --------------------------------------------------------------
     def newProject (self,args):
-        cont = self.builder.get_object("container")
         p = Project(args)
-        cont.attach(p,0,p.ID,1,1)
+        p.connect("taskSelected",self.taskSelected)
+        self.builder.get_object("container").pack_end(p, True, True, 0)
         p.show()
         return p
+    ## --------------------------------------------------------------
+    ## Description : task selected
+    ## NOTE : 
+    ## -
+    ## Author : jouke hylkema
+    ## date   : 13-04-2017 19:04:40
+    ## --------------------------------------------------------------
+    def taskSelected (self,t,t2):
+        print("Main : task selected : %s"%(t2.title))
+        dt = dayTask(t2)
+        self.builder.get_object("dayBox").pack_end(dt.main, True, True, 0)
+        
+        dt.main.show()
+        

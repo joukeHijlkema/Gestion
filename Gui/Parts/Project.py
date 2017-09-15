@@ -11,13 +11,14 @@ import gi
 from gi.repository import Gtk, GObject, Gdk
 
 import arrow
-from .Milestone import Milestone
-from .Task import Task
+from Milestone import Milestone
+from Task import Task
 
 
 class Project(Gtk.Box):
     ID = 0
     title=""
+    __gsignals__ = {'taskSelected': (GObject.SIGNAL_RUN_FIRST, None, (GObject.GObject,)) }
     def __init__(self, args):
         "the Project widget"
         super(Project, self).__init__(args)
@@ -43,12 +44,12 @@ class Project(Gtk.Box):
 
         self.pack_start(self.builder.get_object("main"), True, True, 0)
 
-        handlers      = {
+        handlers  = {
             "onToggle": self.update,
             "onLabelChange": self.update,
             "cancelButtonClicked": self.Cancel,
             "okButtonClicked": self.OK,
-            "newMilestoneClicked": self.newMilestone
+            "newMilestoneClicked": self.newMilestone,
         }
 
         self.builder.connect_signals(handlers)
@@ -84,6 +85,9 @@ class Project(Gtk.Box):
     ## date   : 06-11-2017 15:11:40
     ## --------------------------------------------------------------
     def relDate (self,date):
+        print (date)
+        print(self.startDate)
+        print(self.endDate)
         return (date-self.startDate)/(self.endDate-self.startDate)
     ## --------------------------------------------------------------
     ## Description : add a milestone
@@ -117,6 +121,7 @@ class Project(Gtk.Box):
     ## --------------------------------------------------------------
     def addTask (self,t):
         nt = Task(t)
+        nt.connect("taskSelected",self.taskSelected)
         self.tasks.pack_start(nt.main, True, True, 0)
         self.taskList.append(nt)
         nt.main.show_all()
@@ -129,9 +134,9 @@ class Project(Gtk.Box):
     ## --------------------------------------------------------------
     def newTask (self,*args):
         res=self.builder.get_object("getTitle").run()
+        res.connect("taskSelected",self.taskSelected)
         if self.title!="":
             self.addTask({"title":self.title})
-        
     ## --------------------------------------------------------------
     ## Description : update the Project
     ## NOTE : 
@@ -209,4 +214,13 @@ class Project(Gtk.Box):
         self.title=""
         self.builder.get_object("getTitle").response(0)
         args.get_window().hide()
-    
+    ## --------------------------------------------------------------
+    ## Description : task selected
+    ## NOTE : 
+    ## -
+    ## Author : jouke hylkema
+    ## date   : 13-04-2017 19:04:40
+    ## --------------------------------------------------------------
+    def taskSelected (self,t,t2):
+        print("Project : task selected : %s"%(t2.title))
+        self.emit('taskSelected',t2)
